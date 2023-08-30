@@ -1,23 +1,57 @@
+const FromCountrySelect = document.getElementById('FromCountrySelect');
+const ToCountrySelect = document.getElementById('ToCountrySelect');
+
 const options = async () => {
     try {
-        const res = await fetch('list.json');
+        const res = await fetch('https://restcountries.com/v3/all');
         const data = await res.json();
-
-        const FromCountrySelect = document.getElementById('FromCountrySelect');
+        console.log(data);
+        const currencyCodes = new Set(); 
         data.forEach(country => {
-            const option = document.createElement('option');
-            option.value = country.currency_code;
-            option.textContent = country.currency_code;
-            FromCountrySelect.appendChild(option);
-        })
+            const currencies = country.currencies;
+            // console.log(currencies);
+            if (currencies) {
+                Object.keys(currencies).forEach(currencyCode => {
+                    currencyCodes.add(currencyCode);
+                });
+            }
+        });
 
-        const ToCountrySelect = document.getElementById('ToCountrySelect');
-        data.forEach(country => {
-            const option = document.createElement('option');
-            option.value = country.currency_code;
-            option.textContent = country.currency_code;
-            ToCountrySelect.appendChild(option);
-        })
+        Array.from(currencyCodes).forEach(currencyCode => {
+            const optionFrom = document.createElement('option');
+            const optionTo = document.createElement('option');
+            optionFrom.value = currencyCode;
+            optionFrom.textContent = currencyCode;
+            optionTo.value = currencyCode;
+            optionTo.textContent = currencyCode;
+            FromCountrySelect.appendChild(optionFrom);
+            ToCountrySelect.appendChild(optionTo);
+        });
+
+        FromCountrySelect.addEventListener("change", () => {
+            const selectedCountry = data.find(country => {
+                const currencies = country.currencies;
+                if (currencies && currencies[FromCountrySelect.value]) {
+                    return true;
+                }
+                return false;
+            });
+            console.log(selectedCountry);
+            document.getElementById('Flags').innerHTML = `<img src="${selectedCountry.flags[0]}">`;
+        });
+
+        ToCountrySelect.addEventListener("change", () => {
+            const ToselectedCountry = data.find(country => {
+                const currencies = country.currencies;
+                if (currencies && currencies[ToCountrySelect.value]) {
+                    return true;
+                }
+                return false;
+            });
+            console.log(ToselectedCountry);
+            document.getElementById('ToFlags').innerHTML = `<img src="${ToselectedCountry.flags[0]}">`;
+        });
+        
 
     } catch (e) {
         console.log(e);
@@ -26,10 +60,29 @@ const options = async () => {
 
 options();
 
+let countriesData;
+
+const restCountries = async () => {
+    try{
+        const res = await fetch('https://restcountries.com/v3/all');
+        countriesData = await res.json();
+        // console.log(countriesData);
+    }catch(e){
+        console.log(e);
+    }
+}
+
+restCountries();
+
 const fetchCurrencyData = async (currency, base_currency) => {
     const Ammount = document.getElementById("Enter_Ammount");
     const Display = document.getElementById("display");
+    const Flags = document.getElementById("Flags");
     const API_Key_URL = 'cur_live_0OqDn8Qiu3C8zcZGeqWjpo6yNMqHpur0mZaqTQVy';
+    if(base_currency === '' || currency === '' || base_currency === currency || Ammount.value === ''){
+        alert('Please Select two Different Currency');
+        return
+    }
     try {
         const resp = await fetch(`https://api.currencyapi.com/v3/latest?apikey=${API_Key_URL}&currencies=${currency}&base_currency=${base_currency}`);
         const data2 = await resp.json();
@@ -47,14 +100,13 @@ const fetchCurrencyData = async (currency, base_currency) => {
 
 const fetchData = () => {
 
-    const FromCountrySelect = document.getElementById('FromCountrySelect');
-    const ToCountrySelect = document.getElementById('ToCountrySelect');
-
     let currency = ToCountrySelect.value;
     let base_currency = FromCountrySelect.value;
+    // let countryFlags = FromCountrySelect.value
 
     FromCountrySelect.addEventListener('change', (event) => {
         base_currency = event.target.value;
+        // console.log(event.target.value);
     });
 
     ToCountrySelect.addEventListener('change', (event) => {
@@ -63,3 +115,5 @@ const fetchData = () => {
 
     fetchCurrencyData(currency, base_currency);
 }
+
+// fetchData();
