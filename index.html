@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <title>Currency Converter</title>
 </head>
 
@@ -16,19 +14,18 @@
         <div class="bg-white lg:w-[30%] md:w-[50%] m-10 rounded-md">
             <p class="font-black text-2xl text-center text-[#675AFF]">Currency Converter Using HTML CSS & JavaScript</p>
         </div>
+
         <div class="bg-white lg:w-[30%] md:w-[50%] rounded-md p-8">
             <p class="text-center text-2xl font-bold">Currency Converter</p>
             <div class="flex flex-col items-start p-6">
-                <p class="py-2 text-xl">Enter Ammount</p>
-                <input type="number" class="border-2 border-black rounded w-[100%]" placeholder="Enter Ammount e-g: 100"
-                    id="Enter_Ammount">
+                <p class="py-2 text-xl font-semibold">Enter Ammount</p>
+                <input type="number" class="border-2 border-black rounded w-[100%] p-1" placeholder="Enter Ammount e-g: 100" id="Enter_Ammount">
 
                 <div class="flex mt-6 justify-between w-[100%]">
                     <div>
                         <div class="flex">
-                            <p class="py-2 text-xl">From</p>
+                            <p class="py-2 text-xl font-semibold">From</p>
                             <div id="Flags" class="w-10 my-3 ml-2"></div>
-                            <!-- <img src="" id="Flags" class="w-10 my-3 ml-2" alt=""> -->
                         </div>
                         <select id="FromCountrySelect" class="border-2 border-black rounded p-2 w-28">
                             <option value="">Select</option>
@@ -37,7 +34,7 @@
 
                     <div>
                         <div class="flex">
-                            <p class="py-2 text-xl">To</p>
+                            <p class="py-2 text-xl font-semibold">To</p>
                             <div id="ToFlags" class="w-10 my-3 ml-2"></div>
                         </div>
                         <select id="ToCountrySelect" class="border-2 border-black rounded p-2 w-28">
