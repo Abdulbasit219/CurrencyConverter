@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>Currency Converter</title>
+</head>
+
+<body>
+    <div class="flex flex-col [100%] justify-center h-screen items-center bg">
+        <div class="bg-white lg:w-[30%] md:w-[50%] m-10 rounded-md">
+            <p class="font-black text-2xl text-center text-[#675AFF]">Currency Converter Using HTML CSS & JavaScript</p>
+        </div>
+        <div class="bg-white lg:w-[30%] md:w-[50%] rounded-md p-8">
+            <p class="text-center text-2xl font-bold">Currency Converter</p>
+            <div class="flex flex-col items-start p-6">
+                <p class="py-2 text-xl">Enter Ammount</p>
+                <input type="number" class="border-2 border-black rounded w-[100%]" placeholder="Enter Ammount e-g: 100"
+                    id="Enter_Ammount">
+
+                <div class="flex mt-6 justify-between w-[100%]">
+                    <div>
+                        <div class="flex">
+                            <p class="py-2 text-xl">From</p>
+                            <div id="Flags" class="w-10 my-3 ml-2"></div>
+                        </div>
+                        <select id="FromCountrySelect" class="border-2 border-black rounded p-2 w-28">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <div class="flex">
+                            <p class="py-2 text-xl">To</p>
+                            <div id="ToFlags" class="w-10 my-3 ml-2"></div>
+                        </div>
+                        <select id="ToCountrySelect" class="border-2 border-black rounded p-2 w-28">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center font-bold" id="display"></p>
+
+            <div class="flex justify-center p-2">
+                <button class="m-2 bg-[#675AFF] rounded text-white p-2 hover:opacity-80 font-bold" onclick="
+                fetchData()">Get Exchange Rate</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="bg-white">
+            <p class="text-[#675AFF] font-bold text-center p-4">&copy; 2023 Abdul Basit, All right Reserve</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
